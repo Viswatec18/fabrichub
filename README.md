@@ -22,22 +22,22 @@ A modern React-based project utilizing the latest frontend technologies and tool
 ## 🛠️ Installation
 
 1. Install dependencies:
-   ```bash
+   \`\`\`bash
    npm install
    # or
    yarn install
-   ```
+   \`\`\`
    
 2. Start the development server:
-   ```bash
+   \`\`\`bash
    npm start
    # or
    yarn start
-   ```
+   \`\`\`
 
 ## 📁 Project Structure
 
-```
+\`\`\`
 react_app/
 ├── public/             # Static assets
 ├── src/
@@ -52,13 +52,13 @@ react_app/
 ├── package.json        # Project dependencies and scripts
 ├── tailwind.config.js  # Tailwind CSS configuration
 └── vite.config.js      # Vite configuration
-```
+\`\`\`
 
 ## 🧩 Adding Routes
 
 To add new routes to the application, update the `Routes.jsx` file:
 
-```jsx
+\`\`\`jsx
 import { useRoutes } from "react-router-dom";
 import HomePage from "pages/HomePage";
 import AboutPage from "pages/AboutPage";
@@ -72,7 +72,7 @@ const ProjectRoutes = () => {
 
   return element;
 };
-```
+\`\`\`
 
 ## 🎨 Styling
 
@@ -94,9 +94,9 @@ The app is built with responsive design using Tailwind CSS breakpoints.
 
 Build the application for production:
 
-```bash
+\`\`\`bash
 npm run build
-```
+\`\`\`
 
 ## 🙏 Acknowledgments
 
