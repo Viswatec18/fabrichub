@@ -1,44 +1,118 @@
-/* macOS-style Glassmorphism Theme */
+/* ================================
+   FabricHub – macOS Glass Dark Theme
+   Tokenized + Scoped (safe defaults)
+   ================================ */
 
-/* Background */
+/* ---- Tokens ---- */
+:root {
+  --bg: #0E1014;
+  --panel: #1F2330;
+  --panel-2: #202535;
+  --panel-3: #2A2F3A;
+  --border: #2A2F3A;
+
+  --text: #E6EAF2;
+  --muted: #A7B0C0;
+
+  --accent: #0A84FF;   /* macOS blue */
+  --accent-600: #0066DD;
+
+  --radius: 12px;
+  --radius-lg: 14px;
+}
+
+/* ---- Base ---- */
+html { color-scheme: dark; }
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   padding: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #0f0f0f; /* Dark base */
-  color: #f5f5f5;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glass effect for nav + footer */
-.navbar, footer {
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  background-color: rgba(20, 20, 20, 0.75);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.125);
+/* ---- Glass Navbar/Footer (opt-in via .navbar / footer) ---- */
+.navbar,
+footer.navbar {
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+  background: rgba(18, 20, 27, 0.50);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-/* Buttons */
-button, .btn {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
-}
-button:hover, .btn:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
+/* ---- Panels / Cards ---- */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
 }
 
-/* Links */
-a {
-  color: #4facfe;
+/* ---- Inputs ---- */
+.input {
+  background: var(--panel-2);
+  border: 1px solid var(--panel-3);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  outline: none;
+}
+.input::placeholder { color: var(--muted); }
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* ---- Links (scoped class; avoids styling every <a>) ---- */
+.link {
+  color: var(--text);
+  opacity: .9;
   text-decoration: none;
+  transition: color .15s ease, opacity .15s ease;
 }
-a:hover {
-  text-decoration: underline;
+.link:hover { color: var(--accent); opacity: 1; }
+
+/* ---- Buttons (scoped via .btn; no global button override) ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .15s ease, transform .05s ease, box-shadow .15s ease, border-color .15s ease;
+  background: var(--accent);
+  color: #fff;
+}
+.btn:hover { background: var(--accent-600); }
+.btn:active { transform: translateY(0.5px); }
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* Variants (optional) */
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--panel-3);
+}
+.btn--ghost:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: var(--accent);
+}
+
+/* ---- Utility ---- */
+.hr-line { border: 0; height: 1px; background: var(--border); opacity: .6; }
+.container { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 1rem; }
+
+/* ---- Media (reduce motion) ---- */
+@media (prefers-reduced-motion: reduce) {
+  .btn, .link, .input { transition: none !important; }
 }

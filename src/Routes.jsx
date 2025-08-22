@@ -1,47 +1,37 @@
-import React from "react";
-import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
-import ErrorBoundary from "./components/ErrorBoundary";
-import ScrollToTop from "./components/ScrollToTop";
+import { Routes, Route } from "react-router-dom";
 
-// Import all page components
-import FabricCatalogBrowse from "./pages/fabric-catalog-browse";
-import DesignerDirectoryProfiles from "./pages/designer-directory-profiles";
-import VendorDashboardInventory from "./pages/vendor-dashboard-inventory";
-import FabricProductDetail from "./pages/fabric-product-detail";
-import ShoppingCartCheckout from "./pages/shopping-cart-checkout";
-import OrderManagementDashboard from "./pages/order-management-dashboard";
-import AdminControlPanel from "./pages/admin-control-panel";
-import LoginRegistration from "./pages/login-registration";
-import NotFound from "./pages/NotFound";
-
-const Routes = () => {
+function Page({ title, children }) {
   return (
-    <BrowserRouter>
-      <ErrorBoundary>
-        <ScrollToTop />
-        <RouterRoutes>
-          {/* Main application routes */}
-          <Route path="/" element={<FabricCatalogBrowse />} />
-          <Route path="/fabric-catalog-browse" element={<FabricCatalogBrowse />} />
-          <Route path="/designer-directory-profiles" element={<DesignerDirectoryProfiles />} />
-          <Route path="/vendor-dashboard-inventory" element={<VendorDashboardInventory />} />
-          <Route path="/fabric-product-detail" element={<FabricProductDetail />} />
-          <Route path="/fabric-product-detail/:id" element={<FabricProductDetail />} />
-          <Route path="/shopping-cart-checkout" element={<ShoppingCartCheckout />} />
-          <Route path="/order-management-dashboard" element={<OrderManagementDashboard />} />
-          <Route path="/admin-control-panel" element={<AdminControlPanel />} />
-          
-          {/* Authentication routes - accessible in preview mode */}
-          <Route path="/login-registration" element={<LoginRegistration />} />
-          <Route path="/login" element={<LoginRegistration />} />
-          <Route path="/signup" element={<LoginRegistration />} />
-          
-          {/* 404 Not Found */}
-          <Route path="*" element={<NotFound />} />
-        </RouterRoutes>
-      </ErrorBoundary>
-    </BrowserRouter>
+    <div className="panel mx-auto max-w-6xl p-6 mt-6">
+      <h1 className="text-xl font-semibold mb-3">{title}</h1>
+      {children ?? <p className="text-[var(--muted)]">Content coming soon.</p>}
+    </div>
   );
-};
+}
 
-export default Routes;
+export default function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<Page title="Home" />} />
+      <Route path="/collections" element={<Page title="Collections" />} />
+      <Route path="/about" element={<Page title="About" />} />
+      <Route path="/partnerships" element={<Page title="Partnerships" />} />
+      <Route path="/contact" element={
+        <Page title="Contact">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const email = new FormData(e.currentTarget).get("email");
+              alert(`Subscribed: ${email}`);
+              e.currentTarget.reset();
+            }}
+            className="mt-4 flex gap-2 max-w-md"
+          >
+            <input className="input flex-1" name="email" type="email" placeholder="Enter your email" required />
+            <button className="btn" type="submit">Subscribe</button>
+          </form>
+        </Page>
+      } />
+    </Routes>
+  );
+}
